@@ -25,7 +25,7 @@ passport.use(
     },
     (accessToken, refreshToken, profile, done) => {
       User.findOne({ spotifyId: profile.id }).then(existingUser => {
-        if (existingUSer) {
+        if (existingUser) {
           // record already exists``
           done(null, existingUser); // first argument is error, so call with null
         } else {
