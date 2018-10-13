@@ -5,6 +5,16 @@ const keys = require('../config/dev');
 
 const User = mongoose.model('users');
 
+passport.serializeUser((user, done) => {
+  done(null, user.id); // pass on the unique mongo id
+});
+
+passport.deserializeUser((id, done) => {
+  User.findById(id).then(user => {
+    done(null, user); // pass on the user
+  });
+});
+
 //create new instance of spotify strategy
 passport.use(
   new SpotifyStrategy(
@@ -17,9 +27,12 @@ passport.use(
       User.findOne({ spotifyId: profile.id }).then(existingUser => {
         if (existingUSer) {
           // record already exists``
+          done(null, existingUser); // first argument is error, so call with null
         } else {
           // we need to create a new user
-          new User({ spotifyId: profile.id }).save();
+          new User({ spotifyId: profile.id }).save().then(user => {
+            done(null, user);
+          });
         }
       });
     }
