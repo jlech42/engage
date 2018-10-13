@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cookieSession = require('cookie-session');
 const passport = require('passport');
-const devKeys = require('./config/dev');
+const keys = require('./config/keys');
 
 // bring in user model
 require('./models/User');
@@ -11,14 +11,14 @@ require('./models/User');
 require('./services/passport');
 
 //connect to mongodb
-mongoose.connect(devKeys.mongoURI);
+mongoose.connect(keys.mongoURI);
 
 const app = express(); // create express instance
 
 app.use(
   cookieSession({
     maxAge: 30 * 24 * 60 * 60 * 1000,
-    keys: [devKeys.cookieKey]
+    keys: [keys.cookieKey]
   })
 );
 
