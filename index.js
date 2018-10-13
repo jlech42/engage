@@ -1,32 +1,20 @@
 const express = require('express');
+const mongoose = require('mongoose');
+const devKeys = require('./config/dev');
 
-// passport and spotify strategy
-const passport = require('passport');
-const SpotifyStrategy = require('passport-spotify').Strategy;
-const keys = require('./config/dev');
+// bring in user model
+require('./models/User');
+
+// run passport config
+require('./services/passport');
+
+//connect to mongodb
+mongoose.connect(devKeys.mongoURI);
 
 const app = express(); // create express instance
 
-//create new instance of spotify strategy
-passport.use(
-  new SpotifyStrategy(
-    {
-      clientID: keys.spotifyClientID,
-      clientSecret: keys.spotifyClientSecret,
-      callbackURL: '/auth/spotify/callback/'
-    },
-    accessToken => {
-      console.log(accessToken);
-    }
-  )
-);
-
-app.get(
-  '/auth/spotify',
-  passport.authenticate('spotify', {
-    scope: ['user-read-email', 'user-read-private']
-  })
-);
+// get authRoutes function and immediately call with app
+require('./routes/authRoutes')(app);
 
 app.get('/', (req, res) => {
   res.send({ hi: 'there' });

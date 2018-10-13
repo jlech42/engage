@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 class Header extends Component {
   render() {
     return (
-      <nav>
+      <nav className="deep-purple darken-2">
         <div className="nav-wrapper container">
-          <Link to="/" className="left brand-logo">
+          <Link to="/" className="center brand-logo">
             Engage
           </Link>
           <ul className="right">Reviews</ul>

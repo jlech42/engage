@@ -10,9 +10,11 @@ import Landing from './Landing';
 
 const Landing = () => (
   <div>
-    <h2>Your reviews</h2>
+    <h2 className="center-align">Your Reviews</h2>
     <Link to="/posts/new">
-      <button style={{ margin: '10px 0' }}>New Review</button>
+      <a class="btn-floating btn-large waves-effect waves-light red">
+        <i class="material-icons" />
+      </a>
     </Link>
     <Reviews />
   </div>
