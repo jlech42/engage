@@ -14,7 +14,14 @@ passport.use(
       callbackURL: '/auth/spotify/callback/'
     },
     (accessToken, refreshToken, profile, done) => {
-      new User({ spotifyId: profile.id }).save();
+      User.findOne({ spotifyId: profile.id }).then(existingUser => {
+        if (existingUSer) {
+          // record already exists``
+        } else {
+          // we need to create a new user
+          new User({ spotifyId: profile.id }).save();
+        }
+      });
     }
   )
 );
