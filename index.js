@@ -28,10 +28,6 @@ app.use(passport.session());
 // get authRoutes function and immediately call with app
 require('./routes/authRoutes')(app);
 
-app.get('/', (req, res) => {
-  res.send({ hi: 'there' });
-});
-
 if (process.env.NODE_ENV === 'production') {
   // Express serve up prod assets
   app.use(express.static('client/build'));
