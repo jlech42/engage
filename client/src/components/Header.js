@@ -9,7 +9,9 @@ class Header extends Component {
           <Link to="/" className="center brand-logo">
             Engage
           </Link>
-          <ul className="right">Reviews</ul>
+          <ul className="right">
+            <a href="/auth/spotify">Login With Spotify</a>
+          </ul>
         </div>
       </nav>
     );
